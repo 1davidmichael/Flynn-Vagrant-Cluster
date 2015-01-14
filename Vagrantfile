@@ -14,20 +14,15 @@ Vagrant.configure(2) do |config|
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "ubuntu/trusty64"
 
-	config.vm.define "flynn1" do |flynn1|
-		flynn1.vm.box = "ubuntu/trusty64"
-		flynn1.vm.hostname = "flynn1"
+	(1..4).each do |i|
+		config.vm.define "flynn-#{i}" do |node|
+			node.vm.box = "ubuntu/trusty64"
+			config.vm.provider "virtualbox" do |v|
+				v.memory = 2048
+			end
+		end
 	end
 
-	config.vm.define "flynn2" do |flynn2|
-		flynn2.vm.box = "ubuntu/trusty64"
-		flynn2.vm.hostname = "flynn2"
-	end
-
-	config.vm.define "flynn3" do |flynn3|
-		flynn3.vm.box = "ubuntu/trusty64"
-		flynn3.vm.hostname = "flynn3"
-	end
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
