@@ -14,6 +14,20 @@ Vagrant.configure(2) do |config|
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "ubuntu/trusty64"
 
+	config.vm.define "flynn1" do |flynn1|
+		flynn1.vm.box = "ubuntu/trusty64"
+		flynn1.vm.hostname = "flynn1"
+	end
+
+	config.vm.define "flynn2" do |flynn2|
+		flynn2.vm.box = "ubuntu/trusty64"
+		flynn2.vm.hostname = "flynn2"
+	end
+
+	config.vm.define "flynn3" do |flynn3|
+		flynn3.vm.box = "ubuntu/trusty64"
+		flynn3.vm.hostname = "flynn3"
+	end
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
@@ -68,10 +82,7 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get update
   #   sudo apt-get install -y apache2
   # SHELL
-	config.vm.provision "ansible" do |ansible|
-		ansible.sudo = true
-		ansible.verbose = "v"
-		ansible.playbook = "playbook.yml"
-		ansible.host_key_checking = false
-	end
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "playbook.yml"
+  end
 end
