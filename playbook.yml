@@ -1,0 +1,6 @@
+---
+- hosts: all
+  sudo: true
+  remote_user: vagrant
+  roles:
+    - flynn

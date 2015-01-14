@@ -1,0 +1,21 @@
+- name: Update apt packages
+  apt: name=linux-image-extra-{{ ansible_kernel }} state=present
+  sudo: true
+
+- name: modprobe aufs
+  modprobe: name=aufs state=present
+
+- name: Add Flynn apt-key
+  apt_key: keyserver=hkp://keyserver.ubuntu.com:80 id=BC79739C507A9B53BB1B0E7D820A5489998D827B state=present
+
+- name: Install Flynn apt-repo
+  apt_repository: repo='deb https://dl.flynn.io/ubuntu flynn main' state=present
+
+- name: Update apt packages
+  apt: upgrade=dist
+
+- name: Install Flynn Server
+  apt: name=flynn-host  state=present
+
+- name: Download Flynn docker images
+  command: /usr/bin/flynn-host download /etc/flynn/version.json
